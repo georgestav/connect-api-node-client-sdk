@@ -22,8 +22,29 @@ export interface TokenProvider {
   getToken(): Promise<string> | string;
 }
 
+/**
+ * Applies http authentication to the request context.
+ */
+export class BearerAuthentication implements SecurityAuthentication {
+    /**
+     * Configures the http authentication with the required details.
+     *
+     * @param tokenProvider service that can provide the up-to-date token when needed
+     */
+    public constructor(private tokenProvider: TokenProvider) {}
+
+    public getName(): string {
+        return "bearer";
+    }
+
+    public async applySecurityAuthentication(context: RequestContext) {
+        context.setHeaderParam("Authorization", "Bearer " + await this.tokenProvider.getToken());
+    }
+}
+
 
 export type AuthMethods = {
+    "bearer"?: SecurityAuthentication
 }
 
 export type ApiKeyConfiguration = string;
@@ -32,6 +53,7 @@ export type HttpBearerConfiguration = { tokenProvider: TokenProvider };
 export type OAuth2Configuration = string;
 
 export type AuthMethodsConfiguration = {
+    "bearer"?: HttpBearerConfiguration
 }
 
 /**
@@ -43,6 +65,12 @@ export function configureAuthMethods(config: AuthMethodsConfiguration | undefine
 
     if (!config) {
         return authMethods;
+    }
+
+    if (config["bearer"]) {
+        authMethods["bearer"] = new BearerAuthentication(
+            config["bearer"]["tokenProvider"]
+        );
     }
 
     return authMethods;

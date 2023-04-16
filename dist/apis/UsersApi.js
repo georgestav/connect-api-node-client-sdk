@@ -62,144 +62,224 @@ var UsersApiRequestFactory = (function (_super) {
     }
     UsersApiRequestFactory.prototype.usersControllerCreateUser = function (createUserDto, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, localVarPath, requestContext, contentType, serializedBody;
+            var config, localVarPath, requestContext, contentType, serializedBody, authMethod;
             return __generator(this, function (_a) {
-                config = options || this.configuration;
-                if (createUserDto === null || createUserDto === undefined) {
-                    throw new baseapi_1.RequiredError('Required parameter createUserDto was null or undefined when calling usersControllerCreateUser.');
+                switch (_a.label) {
+                    case 0:
+                        config = options || this.configuration;
+                        if (createUserDto === null || createUserDto === undefined) {
+                            throw new baseapi_1.RequiredError('Required parameter createUserDto was null or undefined when calling usersControllerCreateUser.');
+                        }
+                        localVarPath = '/v1/users/register';
+                        requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.POST);
+                        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
+                        contentType = ObjectSerializer_1.ObjectSerializer.getPreferredMediaType([
+                            "application/json"
+                        ]);
+                        requestContext.setHeaderParam("Content-Type", contentType);
+                        serializedBody = ObjectSerializer_1.ObjectSerializer.stringify(ObjectSerializer_1.ObjectSerializer.serialize(createUserDto, "CreateUserDto", ""), contentType);
+                        requestContext.setBody(serializedBody);
+                        authMethod = null;
+                        authMethod = config.authMethods["bearer"];
+                        if (!authMethod) return [3, 2];
+                        return [4, authMethod.applySecurityAuthentication(requestContext)];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2, requestContext];
                 }
-                localVarPath = '/v1/users/register';
-                requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.POST);
-                requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
-                contentType = ObjectSerializer_1.ObjectSerializer.getPreferredMediaType([
-                    "application/json"
-                ]);
-                requestContext.setHeaderParam("Content-Type", contentType);
-                serializedBody = ObjectSerializer_1.ObjectSerializer.stringify(ObjectSerializer_1.ObjectSerializer.serialize(createUserDto, "CreateUserDto", ""), contentType);
-                requestContext.setBody(serializedBody);
-                return [2, requestContext];
             });
         });
     };
     UsersApiRequestFactory.prototype.usersControllerDeleteUser = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, localVarPath, requestContext;
+            var config, localVarPath, requestContext, authMethod;
             return __generator(this, function (_a) {
-                config = options || this.configuration;
-                if (id === null || id === undefined) {
-                    throw new baseapi_1.RequiredError('Required parameter id was null or undefined when calling usersControllerDeleteUser.');
+                switch (_a.label) {
+                    case 0:
+                        config = options || this.configuration;
+                        if (id === null || id === undefined) {
+                            throw new baseapi_1.RequiredError('Required parameter id was null or undefined when calling usersControllerDeleteUser.');
+                        }
+                        localVarPath = '/v1/users/{id}'
+                            .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
+                        requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.DELETE);
+                        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
+                        authMethod = null;
+                        authMethod = config.authMethods["bearer"];
+                        if (!authMethod) return [3, 2];
+                        return [4, authMethod.applySecurityAuthentication(requestContext)];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2, requestContext];
                 }
-                localVarPath = '/v1/users/{id}'
-                    .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
-                requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.DELETE);
-                requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
-                return [2, requestContext];
             });
         });
     };
     UsersApiRequestFactory.prototype.usersControllerFindAll = function (options) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, localVarPath, requestContext;
+            var config, localVarPath, requestContext, authMethod;
             return __generator(this, function (_a) {
-                config = options || this.configuration;
-                localVarPath = '/v1/users';
-                requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.GET);
-                requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
-                return [2, requestContext];
+                switch (_a.label) {
+                    case 0:
+                        config = options || this.configuration;
+                        localVarPath = '/v1/users';
+                        requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.GET);
+                        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
+                        authMethod = null;
+                        authMethod = config.authMethods["bearer"];
+                        if (!authMethod) return [3, 2];
+                        return [4, authMethod.applySecurityAuthentication(requestContext)];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2, requestContext];
+                }
             });
         });
     };
     UsersApiRequestFactory.prototype.usersControllerFindByEmail = function (email, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, localVarPath, requestContext;
+            var config, localVarPath, requestContext, authMethod;
             return __generator(this, function (_a) {
-                config = options || this.configuration;
-                if (email === null || email === undefined) {
-                    throw new baseapi_1.RequiredError('Required parameter email was null or undefined when calling usersControllerFindByEmail.');
+                switch (_a.label) {
+                    case 0:
+                        config = options || this.configuration;
+                        if (email === null || email === undefined) {
+                            throw new baseapi_1.RequiredError('Required parameter email was null or undefined when calling usersControllerFindByEmail.');
+                        }
+                        localVarPath = '/v1/users/{email}/email'
+                            .replace('{' + 'email' + '}', encodeURIComponent(String(email)));
+                        requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.GET);
+                        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
+                        authMethod = null;
+                        authMethod = config.authMethods["bearer"];
+                        if (!authMethod) return [3, 2];
+                        return [4, authMethod.applySecurityAuthentication(requestContext)];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2, requestContext];
                 }
-                localVarPath = '/v1/users/{email}/email'
-                    .replace('{' + 'email' + '}', encodeURIComponent(String(email)));
-                requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.GET);
-                requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
-                return [2, requestContext];
             });
         });
     };
     UsersApiRequestFactory.prototype.usersControllerFindById = function (id, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, localVarPath, requestContext;
+            var config, localVarPath, requestContext, authMethod;
             return __generator(this, function (_a) {
-                config = options || this.configuration;
-                if (id === null || id === undefined) {
-                    throw new baseapi_1.RequiredError('Required parameter id was null or undefined when calling usersControllerFindById.');
+                switch (_a.label) {
+                    case 0:
+                        config = options || this.configuration;
+                        if (id === null || id === undefined) {
+                            throw new baseapi_1.RequiredError('Required parameter id was null or undefined when calling usersControllerFindById.');
+                        }
+                        localVarPath = '/v1/users/{id}'
+                            .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
+                        requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.GET);
+                        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
+                        authMethod = null;
+                        authMethod = config.authMethods["bearer"];
+                        if (!authMethod) return [3, 2];
+                        return [4, authMethod.applySecurityAuthentication(requestContext)];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2, requestContext];
                 }
-                localVarPath = '/v1/users/{id}'
-                    .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
-                requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.GET);
-                requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
-                return [2, requestContext];
             });
         });
     };
     UsersApiRequestFactory.prototype.usersControllerFindByUserName = function (username, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, localVarPath, requestContext;
+            var config, localVarPath, requestContext, authMethod;
             return __generator(this, function (_a) {
-                config = options || this.configuration;
-                if (username === null || username === undefined) {
-                    throw new baseapi_1.RequiredError('Required parameter username was null or undefined when calling usersControllerFindByUserName.');
+                switch (_a.label) {
+                    case 0:
+                        config = options || this.configuration;
+                        if (username === null || username === undefined) {
+                            throw new baseapi_1.RequiredError('Required parameter username was null or undefined when calling usersControllerFindByUserName.');
+                        }
+                        localVarPath = '/v1/users/{username}/username'
+                            .replace('{' + 'username' + '}', encodeURIComponent(String(username)));
+                        requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.GET);
+                        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
+                        authMethod = null;
+                        authMethod = config.authMethods["bearer"];
+                        if (!authMethod) return [3, 2];
+                        return [4, authMethod.applySecurityAuthentication(requestContext)];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2, requestContext];
                 }
-                localVarPath = '/v1/users/{username}/username'
-                    .replace('{' + 'username' + '}', encodeURIComponent(String(username)));
-                requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.GET);
-                requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
-                return [2, requestContext];
             });
         });
     };
     UsersApiRequestFactory.prototype.usersControllerGetAccessUserAccess = function (getAccessDto, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, localVarPath, requestContext, contentType, serializedBody;
+            var config, localVarPath, requestContext, contentType, serializedBody, authMethod;
             return __generator(this, function (_a) {
-                config = options || this.configuration;
-                if (getAccessDto === null || getAccessDto === undefined) {
-                    throw new baseapi_1.RequiredError('Required parameter getAccessDto was null or undefined when calling usersControllerGetAccessUserAccess.');
+                switch (_a.label) {
+                    case 0:
+                        config = options || this.configuration;
+                        if (getAccessDto === null || getAccessDto === undefined) {
+                            throw new baseapi_1.RequiredError('Required parameter getAccessDto was null or undefined when calling usersControllerGetAccessUserAccess.');
+                        }
+                        localVarPath = '/v1/users/access';
+                        requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.POST);
+                        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
+                        contentType = ObjectSerializer_1.ObjectSerializer.getPreferredMediaType([
+                            "application/json"
+                        ]);
+                        requestContext.setHeaderParam("Content-Type", contentType);
+                        serializedBody = ObjectSerializer_1.ObjectSerializer.stringify(ObjectSerializer_1.ObjectSerializer.serialize(getAccessDto, "GetAccessDto", ""), contentType);
+                        requestContext.setBody(serializedBody);
+                        authMethod = null;
+                        authMethod = config.authMethods["bearer"];
+                        if (!authMethod) return [3, 2];
+                        return [4, authMethod.applySecurityAuthentication(requestContext)];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2, requestContext];
                 }
-                localVarPath = '/v1/users/access';
-                requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.POST);
-                requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
-                contentType = ObjectSerializer_1.ObjectSerializer.getPreferredMediaType([
-                    "application/json"
-                ]);
-                requestContext.setHeaderParam("Content-Type", contentType);
-                serializedBody = ObjectSerializer_1.ObjectSerializer.stringify(ObjectSerializer_1.ObjectSerializer.serialize(getAccessDto, "GetAccessDto", ""), contentType);
-                requestContext.setBody(serializedBody);
-                return [2, requestContext];
             });
         });
     };
     UsersApiRequestFactory.prototype.usersControllerUpdateUser = function (id, createUserDto, options) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, localVarPath, requestContext, contentType, serializedBody;
+            var config, localVarPath, requestContext, contentType, serializedBody, authMethod;
             return __generator(this, function (_a) {
-                config = options || this.configuration;
-                if (id === null || id === undefined) {
-                    throw new baseapi_1.RequiredError('Required parameter id was null or undefined when calling usersControllerUpdateUser.');
+                switch (_a.label) {
+                    case 0:
+                        config = options || this.configuration;
+                        if (id === null || id === undefined) {
+                            throw new baseapi_1.RequiredError('Required parameter id was null or undefined when calling usersControllerUpdateUser.');
+                        }
+                        if (createUserDto === null || createUserDto === undefined) {
+                            throw new baseapi_1.RequiredError('Required parameter createUserDto was null or undefined when calling usersControllerUpdateUser.');
+                        }
+                        localVarPath = '/v1/users/{id}'
+                            .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
+                        requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.PUT);
+                        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
+                        contentType = ObjectSerializer_1.ObjectSerializer.getPreferredMediaType([
+                            "application/json"
+                        ]);
+                        requestContext.setHeaderParam("Content-Type", contentType);
+                        serializedBody = ObjectSerializer_1.ObjectSerializer.stringify(ObjectSerializer_1.ObjectSerializer.serialize(createUserDto, "CreateUserDto", ""), contentType);
+                        requestContext.setBody(serializedBody);
+                        authMethod = null;
+                        authMethod = config.authMethods["bearer"];
+                        if (!authMethod) return [3, 2];
+                        return [4, authMethod.applySecurityAuthentication(requestContext)];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2, requestContext];
                 }
-                if (createUserDto === null || createUserDto === undefined) {
-                    throw new baseapi_1.RequiredError('Required parameter createUserDto was null or undefined when calling usersControllerUpdateUser.');
-                }
-                localVarPath = '/v1/users/{id}'
-                    .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
-                requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.PUT);
-                requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
-                contentType = ObjectSerializer_1.ObjectSerializer.getPreferredMediaType([
-                    "application/json"
-                ]);
-                requestContext.setHeaderParam("Content-Type", contentType);
-                serializedBody = ObjectSerializer_1.ObjectSerializer.stringify(ObjectSerializer_1.ObjectSerializer.serialize(createUserDto, "CreateUserDto", ""), contentType);
-                requestContext.setBody(serializedBody);
-                return [2, requestContext];
             });
         });
     };

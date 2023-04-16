@@ -51,7 +51,12 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
         );
         requestContext.setBody(serializedBody);
 
+        let authMethod = null;
         // Apply auth methods
+        authMethod = config.authMethods["bearer"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
 
         return requestContext;
     }
@@ -85,7 +90,12 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Body Params
 
+        let authMethod = null;
         // Apply auth methods
+        authMethod = config.authMethods["bearer"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
 
         return requestContext;
     }
@@ -111,7 +121,12 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Body Params
 
+        let authMethod = null;
         // Apply auth methods
+        authMethod = config.authMethods["bearer"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
 
         return requestContext;
     }
@@ -145,7 +160,12 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Body Params
 
+        let authMethod = null;
         // Apply auth methods
+        authMethod = config.authMethods["bearer"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
 
         return requestContext;
     }
@@ -179,7 +199,12 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Body Params
 
+        let authMethod = null;
         // Apply auth methods
+        authMethod = config.authMethods["bearer"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
 
         return requestContext;
     }
@@ -213,7 +238,12 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Body Params
 
+        let authMethod = null;
         // Apply auth methods
+        authMethod = config.authMethods["bearer"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
 
         return requestContext;
     }
@@ -255,7 +285,12 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
         );
         requestContext.setBody(serializedBody);
 
+        let authMethod = null;
         // Apply auth methods
+        authMethod = config.authMethods["bearer"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
 
         return requestContext;
     }
@@ -305,7 +340,12 @@ export class UsersApiRequestFactory extends BaseAPIRequestFactory {
         );
         requestContext.setBody(serializedBody);
 
+        let authMethod = null;
         // Apply auth methods
+        authMethod = config.authMethods["bearer"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
 
         return requestContext;
     }
