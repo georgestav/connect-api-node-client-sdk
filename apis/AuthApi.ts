@@ -6,7 +6,13 @@ import {ObjectSerializer} from '../models/ObjectSerializer';
 import {ApiException} from './exception';
 import {isCodeInRange} from '../util';
 
-import { RegisterDto } from '../models/RegisterDto';
+import { InlineResponse200 } from '../models/InlineResponse200';
+import { InlineResponse2001 } from '../models/InlineResponse2001';
+import { InlineResponse400 } from '../models/InlineResponse400';
+import { InlineResponse401 } from '../models/InlineResponse401';
+import { InlineResponse429 } from '../models/InlineResponse429';
+import { LoginDto } from '../models/LoginDto';
+import { RefreshTokenDto } from '../models/RefreshTokenDto';
 
 /**
  * no description
@@ -14,115 +20,20 @@ import { RegisterDto } from '../models/RegisterDto';
 export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 	
     /**
-     * @param token 
+     * User login
+     * @param loginDto 
      */
-    public async authControllerConfirmEmail(token: string, options?: Configuration): Promise<RequestContext> {
+    public async authControllerLogin(loginDto: LoginDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
-        // verify required parameter 'token' is not null or undefined
-        if (token === null || token === undefined) {
-            throw new RequiredError('Required parameter token was null or undefined when calling authControllerConfirmEmail.');
+        // verify required parameter 'loginDto' is not null or undefined
+        if (loginDto === null || loginDto === undefined) {
+            throw new RequiredError('Required parameter loginDto was null or undefined when calling authControllerLogin.');
         }
 
 		
 		// Path Params
-    	const localVarPath = '/v1/auth/confirm-email';
-
-		// Make Request Context
-    	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-        // Query Params
-        if (token !== undefined) {
-        	requestContext.setQueryParam("token", ObjectSerializer.serialize(token, "string", ""));
-        }
-	
-		// Header Params
-	
-		// Form Params
-
-
-		// Body Params
-
-        // Apply auth methods
-
-        return requestContext;
-    }
-
-    /**
-     */
-    public async authControllerConfirmPostEmail(options?: Configuration): Promise<RequestContext> {
-		let config = options || this.configuration;
-		
-		// Path Params
-    	const localVarPath = '/v1/auth/confirm-email';
-
-		// Make Request Context
-    	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-        // Query Params
-	
-		// Header Params
-	
-		// Form Params
-
-
-		// Body Params
-
-        // Apply auth methods
-
-        return requestContext;
-    }
-
-    /**
-     * @param authorization 
-     */
-    public async authControllerGetUserDetails(authorization: string, options?: Configuration): Promise<RequestContext> {
-		let config = options || this.configuration;
-		
-        // verify required parameter 'authorization' is not null or undefined
-        if (authorization === null || authorization === undefined) {
-            throw new RequiredError('Required parameter authorization was null or undefined when calling authControllerGetUserDetails.');
-        }
-
-		
-		// Path Params
-    	const localVarPath = '/v1/auth/details';
-
-		// Make Request Context
-    	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-        // Query Params
-	
-		// Header Params
-		requestContext.setHeaderParam("Authorization", ObjectSerializer.serialize(authorization, "string", ""));
-	
-		// Form Params
-
-
-		// Body Params
-
-        // Apply auth methods
-
-        return requestContext;
-    }
-
-    /**
-     * @param body 
-     */
-    public async authControllerLogin(body: any, options?: Configuration): Promise<RequestContext> {
-		let config = options || this.configuration;
-		
-        // verify required parameter 'body' is not null or undefined
-        if (body === null || body === undefined) {
-            throw new RequiredError('Required parameter body was null or undefined when calling authControllerLogin.');
-        }
-
-		
-		// Path Params
-    	const localVarPath = '/v1/auth/login';
+    	const localVarPath = '/auth/login';
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
@@ -141,7 +52,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(body, "any", ""),
+            ObjectSerializer.serialize(loginDto, "LoginDto", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
@@ -152,12 +63,13 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Log out a user and revoke their access and refresh tokens
      */
-    public async authControllerLoginSocial(options?: Configuration): Promise<RequestContext> {
+    public async authControllerLogout(options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
 		// Path Params
-    	const localVarPath = '/v1/auth/social';
+    	const localVarPath = '/auth/logout';
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
@@ -172,25 +84,31 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Body Params
 
+        let authMethod = null;
         // Apply auth methods
+        authMethod = config.authMethods["bearer"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
 
         return requestContext;
     }
 
     /**
-     * @param registerDto 
+     * Refresh the access token using a refresh token
+     * @param refreshTokenDto 
      */
-    public async authControllerRegister(registerDto: RegisterDto, options?: Configuration): Promise<RequestContext> {
+    public async authControllerRefreshToken(refreshTokenDto: RefreshTokenDto, options?: Configuration): Promise<RequestContext> {
 		let config = options || this.configuration;
 		
-        // verify required parameter 'registerDto' is not null or undefined
-        if (registerDto === null || registerDto === undefined) {
-            throw new RequiredError('Required parameter registerDto was null or undefined when calling authControllerRegister.');
+        // verify required parameter 'refreshTokenDto' is not null or undefined
+        if (refreshTokenDto === null || refreshTokenDto === undefined) {
+            throw new RequiredError('Required parameter refreshTokenDto was null or undefined when calling authControllerRefreshToken.');
         }
 
 		
 		// Path Params
-    	const localVarPath = '/v1/auth/register';
+    	const localVarPath = '/auth/refresh-token';
 
 		// Make Request Context
     	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
@@ -209,38 +127,17 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(registerDto, "RegisterDto", ""),
+            ObjectSerializer.serialize(refreshTokenDto, "RefreshTokenDto", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
 
+        let authMethod = null;
         // Apply auth methods
-
-        return requestContext;
-    }
-
-    /**
-     */
-    public async authControllerValidateToken(options?: Configuration): Promise<RequestContext> {
-		let config = options || this.configuration;
-		
-		// Path Params
-    	const localVarPath = '/v1/auth/validate';
-
-		// Make Request Context
-    	const requestContext = config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-        // Query Params
-	
-		// Header Params
-	
-		// Form Params
-
-
-		// Body Params
-
-        // Apply auth methods
+        authMethod = config.authMethods["bearer"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
 
         return requestContext;
     }
@@ -255,99 +152,46 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerConfirmEmail
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async authControllerConfirmEmail(response: ResponseContext): Promise<void > {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
-            return body;
-        }
-
-        let body = response.body || "";
-    	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
-    }
-			
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to authControllerConfirmPostEmail
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async authControllerConfirmPostEmail(response: ResponseContext): Promise<void > {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
-            return body;
-        }
-
-        let body = response.body || "";
-    	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
-    }
-			
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to authControllerGetUserDetails
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async authControllerGetUserDetails(response: ResponseContext): Promise<void > {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
-            return body;
-        }
-
-        let body = response.body || "";
-    	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
-    }
-			
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
      * @params response Response returned by the server for a request to authControllerLogin
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerLogin(response: ResponseContext): Promise<void > {
+     public async authControllerLogin(response: ResponseContext): Promise<InlineResponse200 > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: InlineResponse200 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "InlineResponse200", ""
+            ) as InlineResponse200;
+            return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: InlineResponse400 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "InlineResponse400", ""
+            ) as InlineResponse400;
+            throw new ApiException<InlineResponse400>(400, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: InlineResponse401 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "InlineResponse401", ""
+            ) as InlineResponse401;
+            throw new ApiException<InlineResponse401>(401, body);
+        }
+        if (isCodeInRange("429", response.httpStatusCode)) {
+            const body: InlineResponse429 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "InlineResponse429", ""
+            ) as InlineResponse429;
+            throw new ApiException<InlineResponse429>(429, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: InlineResponse200 = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "InlineResponse200", ""
+            ) as InlineResponse200;
             return body;
         }
 
@@ -359,21 +203,39 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerLoginSocial
+     * @params response Response returned by the server for a request to authControllerLogout
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerLoginSocial(response: ResponseContext): Promise<void > {
+     public async authControllerLogout(response: ResponseContext): Promise<InlineResponse2001 > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: InlineResponse2001 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "InlineResponse2001", ""
+            ) as InlineResponse2001;
+            return body;
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: InlineResponse401 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "InlineResponse401", ""
+            ) as InlineResponse401;
+            throw new ApiException<InlineResponse401>(401, body);
+        }
+        if (isCodeInRange("429", response.httpStatusCode)) {
+            const body: InlineResponse429 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "InlineResponse429", ""
+            ) as InlineResponse429;
+            throw new ApiException<InlineResponse429>(429, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: InlineResponse2001 = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "InlineResponse2001", ""
+            ) as InlineResponse2001;
             return body;
         }
 
@@ -385,39 +247,27 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to authControllerRegister
+     * @params response Response returned by the server for a request to authControllerRefreshToken
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async authControllerRegister(response: ResponseContext): Promise<void > {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("201", response.httpStatusCode)) {
-            return;
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
-            return body;
-        }
-
-        let body = response.body || "";
-    	throw new ApiException<string>(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
-    }
-			
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to authControllerValidateToken
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async authControllerValidateToken(response: ResponseContext): Promise<void > {
+     public async authControllerRefreshToken(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             return;
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: InlineResponse401 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "InlineResponse401", ""
+            ) as InlineResponse401;
+            throw new ApiException<InlineResponse401>(401, body);
+        }
+        if (isCodeInRange("429", response.httpStatusCode)) {
+            const body: InlineResponse429 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "InlineResponse429", ""
+            ) as InlineResponse429;
+            throw new ApiException<InlineResponse429>(429, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml

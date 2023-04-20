@@ -1,12 +1,6 @@
 export declare class CreateUserDto {
-    'id': string;
-    'name'?: string;
-    'username': string;
     'email': string;
-    'password'?: string;
-    'emailValidated'?: boolean;
-    'accessToken'?: string;
-    'isRegisteredWithSocial'?: boolean;
+    'password': string;
     static readonly discriminator: string | undefined;
     static readonly attributeTypeMap: Array<{
         name: string;

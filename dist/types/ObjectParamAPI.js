@@ -6,26 +6,14 @@ var ObjectAuthApi = (function () {
     function ObjectAuthApi(configuration, requestFactory, responseProcessor) {
         this.api = new ObservableAPI_1.ObservableAuthApi(configuration, requestFactory, responseProcessor);
     }
-    ObjectAuthApi.prototype.authControllerConfirmEmail = function (param, options) {
-        return this.api.authControllerConfirmEmail(param.token, options).toPromise();
-    };
-    ObjectAuthApi.prototype.authControllerConfirmPostEmail = function (param, options) {
-        return this.api.authControllerConfirmPostEmail(options).toPromise();
-    };
-    ObjectAuthApi.prototype.authControllerGetUserDetails = function (param, options) {
-        return this.api.authControllerGetUserDetails(param.authorization, options).toPromise();
-    };
     ObjectAuthApi.prototype.authControllerLogin = function (param, options) {
-        return this.api.authControllerLogin(param.body, options).toPromise();
+        return this.api.authControllerLogin(param.loginDto, options).toPromise();
     };
-    ObjectAuthApi.prototype.authControllerLoginSocial = function (param, options) {
-        return this.api.authControllerLoginSocial(options).toPromise();
+    ObjectAuthApi.prototype.authControllerLogout = function (param, options) {
+        return this.api.authControllerLogout(options).toPromise();
     };
-    ObjectAuthApi.prototype.authControllerRegister = function (param, options) {
-        return this.api.authControllerRegister(param.registerDto, options).toPromise();
-    };
-    ObjectAuthApi.prototype.authControllerValidateToken = function (param, options) {
-        return this.api.authControllerValidateToken(options).toPromise();
+    ObjectAuthApi.prototype.authControllerRefreshToken = function (param, options) {
+        return this.api.authControllerRefreshToken(param.refreshTokenDto, options).toPromise();
     };
     return ObjectAuthApi;
 }());
@@ -52,29 +40,17 @@ var ObjectUsersApi = (function () {
     function ObjectUsersApi(configuration, requestFactory, responseProcessor) {
         this.api = new ObservableAPI_3.ObservableUsersApi(configuration, requestFactory, responseProcessor);
     }
-    ObjectUsersApi.prototype.usersControllerCreateUser = function (param, options) {
-        return this.api.usersControllerCreateUser(param.createUserDto, options).toPromise();
+    ObjectUsersApi.prototype.userControllerConfirmEmail = function (param, options) {
+        return this.api.userControllerConfirmEmail(param.token, options).toPromise();
     };
-    ObjectUsersApi.prototype.usersControllerDeleteUser = function (param, options) {
-        return this.api.usersControllerDeleteUser(param.id, options).toPromise();
+    ObjectUsersApi.prototype.userControllerDevelopersOnly = function (param, options) {
+        return this.api.userControllerDevelopersOnly(options).toPromise();
     };
-    ObjectUsersApi.prototype.usersControllerFindAll = function (param, options) {
-        return this.api.usersControllerFindAll(options).toPromise();
+    ObjectUsersApi.prototype.userControllerRegister = function (param, options) {
+        return this.api.userControllerRegister(param.createUserDto, options).toPromise();
     };
-    ObjectUsersApi.prototype.usersControllerFindByEmail = function (param, options) {
-        return this.api.usersControllerFindByEmail(param.email, options).toPromise();
-    };
-    ObjectUsersApi.prototype.usersControllerFindById = function (param, options) {
-        return this.api.usersControllerFindById(param.id, options).toPromise();
-    };
-    ObjectUsersApi.prototype.usersControllerFindByUserName = function (param, options) {
-        return this.api.usersControllerFindByUserName(param.username, options).toPromise();
-    };
-    ObjectUsersApi.prototype.usersControllerGetAccessUserAccess = function (param, options) {
-        return this.api.usersControllerGetAccessUserAccess(param.getAccessDto, options).toPromise();
-    };
-    ObjectUsersApi.prototype.usersControllerUpdateUser = function (param, options) {
-        return this.api.usersControllerUpdateUser(param.id, param.createUserDto, options).toPromise();
+    ObjectUsersApi.prototype.userControllerUpdateUser = function (param, options) {
+        return this.api.userControllerUpdateUser(param.updateUserDto, options).toPromise();
     };
     return ObjectUsersApi;
 }());

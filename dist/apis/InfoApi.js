@@ -74,13 +74,23 @@ var InfoApiRequestFactory = (function (_super) {
     };
     InfoApiRequestFactory.prototype.appControllerGetRegistration = function (options) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, localVarPath, requestContext;
+            var config, localVarPath, requestContext, authMethod;
             return __generator(this, function (_a) {
-                config = options || this.configuration;
-                localVarPath = '/info';
-                requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.GET);
-                requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
-                return [2, requestContext];
+                switch (_a.label) {
+                    case 0:
+                        config = options || this.configuration;
+                        localVarPath = '/info';
+                        requestContext = config.baseServer.makeRequestContext(localVarPath, http_1.HttpMethod.GET);
+                        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8");
+                        authMethod = null;
+                        authMethod = config.authMethods["bearer"];
+                        if (!authMethod) return [3, 2];
+                        return [4, authMethod.applySecurityAuthentication(requestContext)];
+                    case 1:
+                        _a.sent();
+                        _a.label = 2;
+                    case 2: return [2, requestContext];
+                }
             });
         });
     };
@@ -104,22 +114,27 @@ var InfoApiResponseProcessor = (function () {
     }
     InfoApiResponseProcessor.prototype.appControllerGetInfo = function (response) {
         return __awaiter(this, void 0, void 0, function () {
-            var contentType, body_1, _a, _b, _c, _d, body;
-            return __generator(this, function (_e) {
-                switch (_e.label) {
+            var contentType, body_1, _a, _b, _c, _d, body_2, _e, _f, _g, _h, body;
+            return __generator(this, function (_j) {
+                switch (_j.label) {
                     case 0:
                         contentType = ObjectSerializer_1.ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-                        if (util_1.isCodeInRange("200", response.httpStatusCode)) {
-                            return [2];
-                        }
-                        if (!(response.httpStatusCode >= 200 && response.httpStatusCode <= 299)) return [3, 2];
+                        if (!util_1.isCodeInRange("200", response.httpStatusCode)) return [3, 2];
                         _b = (_a = ObjectSerializer_1.ObjectSerializer).deserialize;
                         _d = (_c = ObjectSerializer_1.ObjectSerializer).parse;
                         return [4, response.body.text()];
                     case 1:
-                        body_1 = _b.apply(_a, [_d.apply(_c, [_e.sent(), contentType]), "void", ""]);
+                        body_1 = _b.apply(_a, [_d.apply(_c, [_j.sent(), contentType]), "any", ""]);
                         return [2, body_1];
                     case 2:
+                        if (!(response.httpStatusCode >= 200 && response.httpStatusCode <= 299)) return [3, 4];
+                        _f = (_e = ObjectSerializer_1.ObjectSerializer).deserialize;
+                        _h = (_g = ObjectSerializer_1.ObjectSerializer).parse;
+                        return [4, response.body.text()];
+                    case 3:
+                        body_2 = _f.apply(_e, [_h.apply(_g, [_j.sent(), contentType]), "any", ""]);
+                        return [2, body_2];
+                    case 4:
                         body = response.body || "";
                         throw new exception_1.ApiException(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
                 }
@@ -128,22 +143,27 @@ var InfoApiResponseProcessor = (function () {
     };
     InfoApiResponseProcessor.prototype.appControllerGetRegistration = function (response) {
         return __awaiter(this, void 0, void 0, function () {
-            var contentType, body_2, _a, _b, _c, _d, body;
-            return __generator(this, function (_e) {
-                switch (_e.label) {
+            var contentType, body_3, _a, _b, _c, _d, body_4, _e, _f, _g, _h, body;
+            return __generator(this, function (_j) {
+                switch (_j.label) {
                     case 0:
                         contentType = ObjectSerializer_1.ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-                        if (util_1.isCodeInRange("200", response.httpStatusCode)) {
-                            return [2];
-                        }
-                        if (!(response.httpStatusCode >= 200 && response.httpStatusCode <= 299)) return [3, 2];
+                        if (!util_1.isCodeInRange("200", response.httpStatusCode)) return [3, 2];
                         _b = (_a = ObjectSerializer_1.ObjectSerializer).deserialize;
                         _d = (_c = ObjectSerializer_1.ObjectSerializer).parse;
                         return [4, response.body.text()];
                     case 1:
-                        body_2 = _b.apply(_a, [_d.apply(_c, [_e.sent(), contentType]), "void", ""]);
-                        return [2, body_2];
+                        body_3 = _b.apply(_a, [_d.apply(_c, [_j.sent(), contentType]), "any", ""]);
+                        return [2, body_3];
                     case 2:
+                        if (!(response.httpStatusCode >= 200 && response.httpStatusCode <= 299)) return [3, 4];
+                        _f = (_e = ObjectSerializer_1.ObjectSerializer).deserialize;
+                        _h = (_g = ObjectSerializer_1.ObjectSerializer).parse;
+                        return [4, response.body.text()];
+                    case 3:
+                        body_4 = _f.apply(_e, [_h.apply(_g, [_j.sent(), contentType]), "any", ""]);
+                        return [2, body_4];
+                    case 4:
                         body = response.body || "";
                         throw new exception_1.ApiException(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
                 }
@@ -152,22 +172,27 @@ var InfoApiResponseProcessor = (function () {
     };
     InfoApiResponseProcessor.prototype.appControllerHealth = function (response) {
         return __awaiter(this, void 0, void 0, function () {
-            var contentType, body_3, _a, _b, _c, _d, body;
-            return __generator(this, function (_e) {
-                switch (_e.label) {
+            var contentType, body_5, _a, _b, _c, _d, body_6, _e, _f, _g, _h, body;
+            return __generator(this, function (_j) {
+                switch (_j.label) {
                     case 0:
                         contentType = ObjectSerializer_1.ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-                        if (util_1.isCodeInRange("200", response.httpStatusCode)) {
-                            return [2];
-                        }
-                        if (!(response.httpStatusCode >= 200 && response.httpStatusCode <= 299)) return [3, 2];
+                        if (!util_1.isCodeInRange("200", response.httpStatusCode)) return [3, 2];
                         _b = (_a = ObjectSerializer_1.ObjectSerializer).deserialize;
                         _d = (_c = ObjectSerializer_1.ObjectSerializer).parse;
                         return [4, response.body.text()];
                     case 1:
-                        body_3 = _b.apply(_a, [_d.apply(_c, [_e.sent(), contentType]), "void", ""]);
-                        return [2, body_3];
+                        body_5 = _b.apply(_a, [_d.apply(_c, [_j.sent(), contentType]), "string", ""]);
+                        return [2, body_5];
                     case 2:
+                        if (!(response.httpStatusCode >= 200 && response.httpStatusCode <= 299)) return [3, 4];
+                        _f = (_e = ObjectSerializer_1.ObjectSerializer).deserialize;
+                        _h = (_g = ObjectSerializer_1.ObjectSerializer).parse;
+                        return [4, response.body.text()];
+                    case 3:
+                        body_6 = _f.apply(_e, [_h.apply(_g, [_j.sent(), contentType]), "string", ""]);
+                        return [2, body_6];
+                    case 4:
                         body = response.body || "";
                         throw new exception_1.ApiException(response.httpStatusCode, "Unknown API Status Code!\nBody: \"" + body + "\"");
                 }

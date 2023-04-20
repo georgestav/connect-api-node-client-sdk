@@ -12,11 +12,31 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ObjectSerializer = void 0;
 __exportStar(require("./CreateUserDto"), exports);
-__exportStar(require("./GetAccessDto"), exports);
-__exportStar(require("./RegisterDto"), exports);
+__exportStar(require("./InlineResponse200"), exports);
+__exportStar(require("./InlineResponse2001"), exports);
+__exportStar(require("./InlineResponse400"), exports);
+__exportStar(require("./InlineResponse401"), exports);
+__exportStar(require("./InlineResponse404"), exports);
+__exportStar(require("./InlineResponse409"), exports);
+__exportStar(require("./InlineResponse429"), exports);
+__exportStar(require("./InlineResponse500"), exports);
+__exportStar(require("./LoginDto"), exports);
+__exportStar(require("./RefreshTokenDto"), exports);
+__exportStar(require("./UpdateUserDto"), exports);
+__exportStar(require("./User"), exports);
 var CreateUserDto_1 = require("./CreateUserDto");
-var GetAccessDto_1 = require("./GetAccessDto");
-var RegisterDto_1 = require("./RegisterDto");
+var InlineResponse200_1 = require("./InlineResponse200");
+var InlineResponse2001_1 = require("./InlineResponse2001");
+var InlineResponse400_1 = require("./InlineResponse400");
+var InlineResponse401_1 = require("./InlineResponse401");
+var InlineResponse404_1 = require("./InlineResponse404");
+var InlineResponse409_1 = require("./InlineResponse409");
+var InlineResponse429_1 = require("./InlineResponse429");
+var InlineResponse500_1 = require("./InlineResponse500");
+var LoginDto_1 = require("./LoginDto");
+var RefreshTokenDto_1 = require("./RefreshTokenDto");
+var UpdateUserDto_1 = require("./UpdateUserDto");
+var User_1 = require("./User");
 var primitives = [
     "string",
     "boolean",
@@ -31,11 +51,23 @@ var supportedMediaTypes = {
     "application/json": Infinity,
     "application/octet-stream": 0
 };
-var enumsMap = new Set([]);
+var enumsMap = new Set([
+    "UserRolesEnum",
+]);
 var typeMap = {
     "CreateUserDto": CreateUserDto_1.CreateUserDto,
-    "GetAccessDto": GetAccessDto_1.GetAccessDto,
-    "RegisterDto": RegisterDto_1.RegisterDto,
+    "InlineResponse200": InlineResponse200_1.InlineResponse200,
+    "InlineResponse2001": InlineResponse2001_1.InlineResponse2001,
+    "InlineResponse400": InlineResponse400_1.InlineResponse400,
+    "InlineResponse401": InlineResponse401_1.InlineResponse401,
+    "InlineResponse404": InlineResponse404_1.InlineResponse404,
+    "InlineResponse409": InlineResponse409_1.InlineResponse409,
+    "InlineResponse429": InlineResponse429_1.InlineResponse429,
+    "InlineResponse500": InlineResponse500_1.InlineResponse500,
+    "LoginDto": LoginDto_1.LoginDto,
+    "RefreshTokenDto": RefreshTokenDto_1.RefreshTokenDto,
+    "UpdateUserDto": UpdateUserDto_1.UpdateUserDto,
+    "User": User_1.User,
 };
 var ObjectSerializer = (function () {
     function ObjectSerializer() {

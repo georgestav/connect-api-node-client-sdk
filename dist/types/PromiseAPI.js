@@ -6,32 +6,16 @@ var PromiseAuthApi = (function () {
     function PromiseAuthApi(configuration, requestFactory, responseProcessor) {
         this.api = new ObservableAPI_1.ObservableAuthApi(configuration, requestFactory, responseProcessor);
     }
-    PromiseAuthApi.prototype.authControllerConfirmEmail = function (token, options) {
-        var result = this.api.authControllerConfirmEmail(token, options);
+    PromiseAuthApi.prototype.authControllerLogin = function (loginDto, options) {
+        var result = this.api.authControllerLogin(loginDto, options);
         return result.toPromise();
     };
-    PromiseAuthApi.prototype.authControllerConfirmPostEmail = function (options) {
-        var result = this.api.authControllerConfirmPostEmail(options);
+    PromiseAuthApi.prototype.authControllerLogout = function (options) {
+        var result = this.api.authControllerLogout(options);
         return result.toPromise();
     };
-    PromiseAuthApi.prototype.authControllerGetUserDetails = function (authorization, options) {
-        var result = this.api.authControllerGetUserDetails(authorization, options);
-        return result.toPromise();
-    };
-    PromiseAuthApi.prototype.authControllerLogin = function (body, options) {
-        var result = this.api.authControllerLogin(body, options);
-        return result.toPromise();
-    };
-    PromiseAuthApi.prototype.authControllerLoginSocial = function (options) {
-        var result = this.api.authControllerLoginSocial(options);
-        return result.toPromise();
-    };
-    PromiseAuthApi.prototype.authControllerRegister = function (registerDto, options) {
-        var result = this.api.authControllerRegister(registerDto, options);
-        return result.toPromise();
-    };
-    PromiseAuthApi.prototype.authControllerValidateToken = function (options) {
-        var result = this.api.authControllerValidateToken(options);
+    PromiseAuthApi.prototype.authControllerRefreshToken = function (refreshTokenDto, options) {
+        var result = this.api.authControllerRefreshToken(refreshTokenDto, options);
         return result.toPromise();
     };
     return PromiseAuthApi;
@@ -62,36 +46,20 @@ var PromiseUsersApi = (function () {
     function PromiseUsersApi(configuration, requestFactory, responseProcessor) {
         this.api = new ObservableAPI_3.ObservableUsersApi(configuration, requestFactory, responseProcessor);
     }
-    PromiseUsersApi.prototype.usersControllerCreateUser = function (createUserDto, options) {
-        var result = this.api.usersControllerCreateUser(createUserDto, options);
+    PromiseUsersApi.prototype.userControllerConfirmEmail = function (token, options) {
+        var result = this.api.userControllerConfirmEmail(token, options);
         return result.toPromise();
     };
-    PromiseUsersApi.prototype.usersControllerDeleteUser = function (id, options) {
-        var result = this.api.usersControllerDeleteUser(id, options);
+    PromiseUsersApi.prototype.userControllerDevelopersOnly = function (options) {
+        var result = this.api.userControllerDevelopersOnly(options);
         return result.toPromise();
     };
-    PromiseUsersApi.prototype.usersControllerFindAll = function (options) {
-        var result = this.api.usersControllerFindAll(options);
+    PromiseUsersApi.prototype.userControllerRegister = function (createUserDto, options) {
+        var result = this.api.userControllerRegister(createUserDto, options);
         return result.toPromise();
     };
-    PromiseUsersApi.prototype.usersControllerFindByEmail = function (email, options) {
-        var result = this.api.usersControllerFindByEmail(email, options);
-        return result.toPromise();
-    };
-    PromiseUsersApi.prototype.usersControllerFindById = function (id, options) {
-        var result = this.api.usersControllerFindById(id, options);
-        return result.toPromise();
-    };
-    PromiseUsersApi.prototype.usersControllerFindByUserName = function (username, options) {
-        var result = this.api.usersControllerFindByUserName(username, options);
-        return result.toPromise();
-    };
-    PromiseUsersApi.prototype.usersControllerGetAccessUserAccess = function (getAccessDto, options) {
-        var result = this.api.usersControllerGetAccessUserAccess(getAccessDto, options);
-        return result.toPromise();
-    };
-    PromiseUsersApi.prototype.usersControllerUpdateUser = function (id, createUserDto, options) {
-        var result = this.api.usersControllerUpdateUser(id, createUserDto, options);
+    PromiseUsersApi.prototype.userControllerUpdateUser = function (updateUserDto, options) {
+        var result = this.api.userControllerUpdateUser(updateUserDto, options);
         return result.toPromise();
     };
     return PromiseUsersApi;

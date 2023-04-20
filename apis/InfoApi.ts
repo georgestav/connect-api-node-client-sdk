@@ -59,7 +59,12 @@ export class InfoApiRequestFactory extends BaseAPIRequestFactory {
 
 		// Body Params
 
+        let authMethod = null;
         // Apply auth methods
+        authMethod = config.authMethods["bearer"]
+        if (authMethod) {
+            await authMethod.applySecurityAuthentication(requestContext);
+        }
 
         return requestContext;
     }
@@ -103,18 +108,22 @@ export class InfoApiResponseProcessor {
      * @params response Response returned by the server for a request to appControllerGetInfo
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async appControllerGetInfo(response: ResponseContext): Promise<void > {
+     public async appControllerGetInfo(response: ResponseContext): Promise<any > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: any = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "any", ""
+            ) as any;
             return body;
         }
 
@@ -129,18 +138,22 @@ export class InfoApiResponseProcessor {
      * @params response Response returned by the server for a request to appControllerGetRegistration
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async appControllerGetRegistration(response: ResponseContext): Promise<void > {
+     public async appControllerGetRegistration(response: ResponseContext): Promise<any > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: any = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "any", ""
+            ) as any;
             return body;
         }
 
@@ -155,18 +168,22 @@ export class InfoApiResponseProcessor {
      * @params response Response returned by the server for a request to appControllerHealth
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async appControllerHealth(response: ResponseContext): Promise<void > {
+     public async appControllerHealth(response: ResponseContext): Promise<string > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            return;
+            const body: string = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "string", ""
+            ) as string;
+            return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: void = ObjectSerializer.deserialize(
+            const body: string = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "void", ""
-            ) as void;
+                "string", ""
+            ) as string;
             return body;
         }
 

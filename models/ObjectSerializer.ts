@@ -1,10 +1,30 @@
 export * from './CreateUserDto';
-export * from './GetAccessDto';
-export * from './RegisterDto';
+export * from './InlineResponse200';
+export * from './InlineResponse2001';
+export * from './InlineResponse400';
+export * from './InlineResponse401';
+export * from './InlineResponse404';
+export * from './InlineResponse409';
+export * from './InlineResponse429';
+export * from './InlineResponse500';
+export * from './LoginDto';
+export * from './RefreshTokenDto';
+export * from './UpdateUserDto';
+export * from './User';
 
 import { CreateUserDto } from './CreateUserDto';
-import { GetAccessDto } from './GetAccessDto';
-import { RegisterDto } from './RegisterDto';
+import { InlineResponse200 } from './InlineResponse200';
+import { InlineResponse2001 } from './InlineResponse2001';
+import { InlineResponse400 } from './InlineResponse400';
+import { InlineResponse401 } from './InlineResponse401';
+import { InlineResponse404 } from './InlineResponse404';
+import { InlineResponse409 } from './InlineResponse409';
+import { InlineResponse429 } from './InlineResponse429';
+import { InlineResponse500 } from './InlineResponse500';
+import { LoginDto } from './LoginDto';
+import { RefreshTokenDto } from './RefreshTokenDto';
+import { UpdateUserDto } from './UpdateUserDto';
+import { User   , UserRolesEnum           } from './User';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -25,12 +45,23 @@ const supportedMediaTypes: { [mediaType: string]: number } = {
 
                  
 let enumsMap: Set<string> = new Set<string>([
+    "UserRolesEnum",
 ]);
 
 let typeMap: {[index: string]: any} = {
     "CreateUserDto": CreateUserDto,
-    "GetAccessDto": GetAccessDto,
-    "RegisterDto": RegisterDto,
+    "InlineResponse200": InlineResponse200,
+    "InlineResponse2001": InlineResponse2001,
+    "InlineResponse400": InlineResponse400,
+    "InlineResponse401": InlineResponse401,
+    "InlineResponse404": InlineResponse404,
+    "InlineResponse409": InlineResponse409,
+    "InlineResponse429": InlineResponse429,
+    "InlineResponse500": InlineResponse500,
+    "LoginDto": LoginDto,
+    "RefreshTokenDto": RefreshTokenDto,
+    "UpdateUserDto": UpdateUserDto,
+    "User": User,
 }
 
 export class ObjectSerializer {

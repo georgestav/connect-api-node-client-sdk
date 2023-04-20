@@ -1,6 +1,6 @@
 /**
  * Connect Api
- * Connect API documentation
+ * Connect API documentation, Global rate limiting is applied: 100 requests per minute.
  *
  * OpenAPI spec version: 1.1.12-0
  * 
@@ -13,36 +13,12 @@
 import { HttpFile } from '../http/http';
 
 export class CreateUserDto {
-    'id': string;
-    'name'?: string;
-    'username': string;
     'email': string;
-    'password'?: string;
-    'emailValidated'?: boolean;
-    'accessToken'?: string;
-    'isRegisteredWithSocial'?: boolean;
+    'password': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "username",
-            "baseName": "username",
-            "type": "string",
-            "format": ""
-        },
         {
             "name": "email",
             "baseName": "email",
@@ -53,24 +29,6 @@ export class CreateUserDto {
             "name": "password",
             "baseName": "password",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "emailValidated",
-            "baseName": "emailValidated",
-            "type": "boolean",
-            "format": ""
-        },
-        {
-            "name": "accessToken",
-            "baseName": "accessToken",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "isRegisteredWithSocial",
-            "baseName": "isRegisteredWithSocial",
-            "type": "boolean",
             "format": ""
         }    ];
 

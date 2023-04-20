@@ -3,8 +3,18 @@ import * as models from '../models/all';
 import { Configuration} from '../configuration'
 
 import { CreateUserDto } from '../models/CreateUserDto';
-import { GetAccessDto } from '../models/GetAccessDto';
-import { RegisterDto } from '../models/RegisterDto';
+import { InlineResponse200 } from '../models/InlineResponse200';
+import { InlineResponse2001 } from '../models/InlineResponse2001';
+import { InlineResponse400 } from '../models/InlineResponse400';
+import { InlineResponse401 } from '../models/InlineResponse401';
+import { InlineResponse404 } from '../models/InlineResponse404';
+import { InlineResponse409 } from '../models/InlineResponse409';
+import { InlineResponse429 } from '../models/InlineResponse429';
+import { InlineResponse500 } from '../models/InlineResponse500';
+import { LoginDto } from '../models/LoginDto';
+import { RefreshTokenDto } from '../models/RefreshTokenDto';
+import { UpdateUserDto } from '../models/UpdateUserDto';
+import { User } from '../models/User';
 import { ObservableAuthApi } from './ObservableAPI';
 
 
@@ -21,55 +31,28 @@ export class PromiseAuthApi {
     }
 
     /**
-     * @param token 
+     * User login
+     * @param loginDto 
      */
-    public authControllerConfirmEmail(token: string, options?: Configuration): Promise<void> {
-    	const result = this.api.authControllerConfirmEmail(token, options);
+    public authControllerLogin(loginDto: LoginDto, options?: Configuration): Promise<InlineResponse200> {
+    	const result = this.api.authControllerLogin(loginDto, options);
         return result.toPromise();
     }
 	
     /**
+     * Log out a user and revoke their access and refresh tokens
      */
-    public authControllerConfirmPostEmail(options?: Configuration): Promise<void> {
-    	const result = this.api.authControllerConfirmPostEmail(options);
+    public authControllerLogout(options?: Configuration): Promise<InlineResponse2001> {
+    	const result = this.api.authControllerLogout(options);
         return result.toPromise();
     }
 	
     /**
-     * @param authorization 
+     * Refresh the access token using a refresh token
+     * @param refreshTokenDto 
      */
-    public authControllerGetUserDetails(authorization: string, options?: Configuration): Promise<void> {
-    	const result = this.api.authControllerGetUserDetails(authorization, options);
-        return result.toPromise();
-    }
-	
-    /**
-     * @param body 
-     */
-    public authControllerLogin(body: any, options?: Configuration): Promise<void> {
-    	const result = this.api.authControllerLogin(body, options);
-        return result.toPromise();
-    }
-	
-    /**
-     */
-    public authControllerLoginSocial(options?: Configuration): Promise<void> {
-    	const result = this.api.authControllerLoginSocial(options);
-        return result.toPromise();
-    }
-	
-    /**
-     * @param registerDto 
-     */
-    public authControllerRegister(registerDto: RegisterDto, options?: Configuration): Promise<void> {
-    	const result = this.api.authControllerRegister(registerDto, options);
-        return result.toPromise();
-    }
-	
-    /**
-     */
-    public authControllerValidateToken(options?: Configuration): Promise<void> {
-    	const result = this.api.authControllerValidateToken(options);
+    public authControllerRefreshToken(refreshTokenDto: RefreshTokenDto, options?: Configuration): Promise<void> {
+    	const result = this.api.authControllerRefreshToken(refreshTokenDto, options);
         return result.toPromise();
     }
 	
@@ -95,21 +78,21 @@ export class PromiseInfoApi {
 
     /**
      */
-    public appControllerGetInfo(options?: Configuration): Promise<void> {
+    public appControllerGetInfo(options?: Configuration): Promise<any> {
     	const result = this.api.appControllerGetInfo(options);
         return result.toPromise();
     }
 	
     /**
      */
-    public appControllerGetRegistration(options?: Configuration): Promise<void> {
+    public appControllerGetRegistration(options?: Configuration): Promise<any> {
     	const result = this.api.appControllerGetRegistration(options);
         return result.toPromise();
     }
 	
     /**
      */
-    public appControllerHealth(options?: Configuration): Promise<void> {
+    public appControllerHealth(options?: Configuration): Promise<string> {
     	const result = this.api.appControllerHealth(options);
         return result.toPromise();
     }
@@ -135,66 +118,36 @@ export class PromiseUsersApi {
     }
 
     /**
-     * @param createUserDto 
+     * @param token Email confirmation token
      */
-    public usersControllerCreateUser(createUserDto: CreateUserDto, options?: Configuration): Promise<void> {
-    	const result = this.api.usersControllerCreateUser(createUserDto, options);
+    public userControllerConfirmEmail(token: string, options?: Configuration): Promise<void> {
+    	const result = this.api.userControllerConfirmEmail(token, options);
         return result.toPromise();
     }
 	
     /**
-     * @param id 
+     * Requires DEVELOPER role
+     * Endpoint accessible only by developers
      */
-    public usersControllerDeleteUser(id: string, options?: Configuration): Promise<void> {
-    	const result = this.api.usersControllerDeleteUser(id, options);
+    public userControllerDevelopersOnly(options?: Configuration): Promise<string> {
+    	const result = this.api.userControllerDevelopersOnly(options);
         return result.toPromise();
     }
 	
     /**
+     * @param createUserDto User registration data
      */
-    public usersControllerFindAll(options?: Configuration): Promise<void> {
-    	const result = this.api.usersControllerFindAll(options);
+    public userControllerRegister(createUserDto: CreateUserDto, options?: Configuration): Promise<User> {
+    	const result = this.api.userControllerRegister(createUserDto, options);
         return result.toPromise();
     }
 	
     /**
-     * @param email 
+     * Update user details
+     * @param updateUserDto 
      */
-    public usersControllerFindByEmail(email: string, options?: Configuration): Promise<void> {
-    	const result = this.api.usersControllerFindByEmail(email, options);
-        return result.toPromise();
-    }
-	
-    /**
-     * @param id 
-     */
-    public usersControllerFindById(id: string, options?: Configuration): Promise<void> {
-    	const result = this.api.usersControllerFindById(id, options);
-        return result.toPromise();
-    }
-	
-    /**
-     * @param username 
-     */
-    public usersControllerFindByUserName(username: string, options?: Configuration): Promise<void> {
-    	const result = this.api.usersControllerFindByUserName(username, options);
-        return result.toPromise();
-    }
-	
-    /**
-     * @param getAccessDto 
-     */
-    public usersControllerGetAccessUserAccess(getAccessDto: GetAccessDto, options?: Configuration): Promise<void> {
-    	const result = this.api.usersControllerGetAccessUserAccess(getAccessDto, options);
-        return result.toPromise();
-    }
-	
-    /**
-     * @param id 
-     * @param createUserDto 
-     */
-    public usersControllerUpdateUser(id: string, createUserDto: CreateUserDto, options?: Configuration): Promise<void> {
-    	const result = this.api.usersControllerUpdateUser(id, createUserDto, options);
+    public userControllerUpdateUser(updateUserDto: UpdateUserDto, options?: Configuration): Promise<User> {
+    	const result = this.api.userControllerUpdateUser(updateUserDto, options);
         return result.toPromise();
     }
 	

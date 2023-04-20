@@ -1,36 +1,26 @@
 import { Configuration } from '../configuration';
 import { CreateUserDto } from '../models/CreateUserDto';
-import { GetAccessDto } from '../models/GetAccessDto';
-import { RegisterDto } from '../models/RegisterDto';
+import { InlineResponse200 } from '../models/InlineResponse200';
+import { InlineResponse2001 } from '../models/InlineResponse2001';
+import { LoginDto } from '../models/LoginDto';
+import { RefreshTokenDto } from '../models/RefreshTokenDto';
+import { UpdateUserDto } from '../models/UpdateUserDto';
+import { User } from '../models/User';
 import { AuthApiRequestFactory, AuthApiResponseProcessor } from "../apis/AuthApi";
-export interface AuthApiAuthControllerConfirmEmailRequest {
-    token: string;
-}
-export interface AuthApiAuthControllerConfirmPostEmailRequest {
-}
-export interface AuthApiAuthControllerGetUserDetailsRequest {
-    authorization: string;
-}
 export interface AuthApiAuthControllerLoginRequest {
-    body: any;
+    loginDto: LoginDto;
 }
-export interface AuthApiAuthControllerLoginSocialRequest {
+export interface AuthApiAuthControllerLogoutRequest {
 }
-export interface AuthApiAuthControllerRegisterRequest {
-    registerDto: RegisterDto;
-}
-export interface AuthApiAuthControllerValidateTokenRequest {
+export interface AuthApiAuthControllerRefreshTokenRequest {
+    refreshTokenDto: RefreshTokenDto;
 }
 export declare class ObjectAuthApi {
     private api;
     constructor(configuration: Configuration, requestFactory?: AuthApiRequestFactory, responseProcessor?: AuthApiResponseProcessor);
-    authControllerConfirmEmail(param: AuthApiAuthControllerConfirmEmailRequest, options?: Configuration): Promise<void>;
-    authControllerConfirmPostEmail(param: AuthApiAuthControllerConfirmPostEmailRequest, options?: Configuration): Promise<void>;
-    authControllerGetUserDetails(param: AuthApiAuthControllerGetUserDetailsRequest, options?: Configuration): Promise<void>;
-    authControllerLogin(param: AuthApiAuthControllerLoginRequest, options?: Configuration): Promise<void>;
-    authControllerLoginSocial(param: AuthApiAuthControllerLoginSocialRequest, options?: Configuration): Promise<void>;
-    authControllerRegister(param: AuthApiAuthControllerRegisterRequest, options?: Configuration): Promise<void>;
-    authControllerValidateToken(param: AuthApiAuthControllerValidateTokenRequest, options?: Configuration): Promise<void>;
+    authControllerLogin(param: AuthApiAuthControllerLoginRequest, options?: Configuration): Promise<InlineResponse200>;
+    authControllerLogout(param: AuthApiAuthControllerLogoutRequest, options?: Configuration): Promise<InlineResponse2001>;
+    authControllerRefreshToken(param: AuthApiAuthControllerRefreshTokenRequest, options?: Configuration): Promise<void>;
 }
 import { InfoApiRequestFactory, InfoApiResponseProcessor } from "../apis/InfoApi";
 export interface InfoApiAppControllerGetInfoRequest {
@@ -42,44 +32,27 @@ export interface InfoApiAppControllerHealthRequest {
 export declare class ObjectInfoApi {
     private api;
     constructor(configuration: Configuration, requestFactory?: InfoApiRequestFactory, responseProcessor?: InfoApiResponseProcessor);
-    appControllerGetInfo(param: InfoApiAppControllerGetInfoRequest, options?: Configuration): Promise<void>;
-    appControllerGetRegistration(param: InfoApiAppControllerGetRegistrationRequest, options?: Configuration): Promise<void>;
-    appControllerHealth(param: InfoApiAppControllerHealthRequest, options?: Configuration): Promise<void>;
+    appControllerGetInfo(param: InfoApiAppControllerGetInfoRequest, options?: Configuration): Promise<any>;
+    appControllerGetRegistration(param: InfoApiAppControllerGetRegistrationRequest, options?: Configuration): Promise<any>;
+    appControllerHealth(param: InfoApiAppControllerHealthRequest, options?: Configuration): Promise<string>;
 }
 import { UsersApiRequestFactory, UsersApiResponseProcessor } from "../apis/UsersApi";
-export interface UsersApiUsersControllerCreateUserRequest {
+export interface UsersApiUserControllerConfirmEmailRequest {
+    token: string;
+}
+export interface UsersApiUserControllerDevelopersOnlyRequest {
+}
+export interface UsersApiUserControllerRegisterRequest {
     createUserDto: CreateUserDto;
 }
-export interface UsersApiUsersControllerDeleteUserRequest {
-    id: string;
-}
-export interface UsersApiUsersControllerFindAllRequest {
-}
-export interface UsersApiUsersControllerFindByEmailRequest {
-    email: string;
-}
-export interface UsersApiUsersControllerFindByIdRequest {
-    id: string;
-}
-export interface UsersApiUsersControllerFindByUserNameRequest {
-    username: string;
-}
-export interface UsersApiUsersControllerGetAccessUserAccessRequest {
-    getAccessDto: GetAccessDto;
-}
-export interface UsersApiUsersControllerUpdateUserRequest {
-    id: string;
-    createUserDto: CreateUserDto;
+export interface UsersApiUserControllerUpdateUserRequest {
+    updateUserDto: UpdateUserDto;
 }
 export declare class ObjectUsersApi {
     private api;
     constructor(configuration: Configuration, requestFactory?: UsersApiRequestFactory, responseProcessor?: UsersApiResponseProcessor);
-    usersControllerCreateUser(param: UsersApiUsersControllerCreateUserRequest, options?: Configuration): Promise<void>;
-    usersControllerDeleteUser(param: UsersApiUsersControllerDeleteUserRequest, options?: Configuration): Promise<void>;
-    usersControllerFindAll(param: UsersApiUsersControllerFindAllRequest, options?: Configuration): Promise<void>;
-    usersControllerFindByEmail(param: UsersApiUsersControllerFindByEmailRequest, options?: Configuration): Promise<void>;
-    usersControllerFindById(param: UsersApiUsersControllerFindByIdRequest, options?: Configuration): Promise<void>;
-    usersControllerFindByUserName(param: UsersApiUsersControllerFindByUserNameRequest, options?: Configuration): Promise<void>;
-    usersControllerGetAccessUserAccess(param: UsersApiUsersControllerGetAccessUserAccessRequest, options?: Configuration): Promise<void>;
-    usersControllerUpdateUser(param: UsersApiUsersControllerUpdateUserRequest, options?: Configuration): Promise<void>;
+    userControllerConfirmEmail(param: UsersApiUserControllerConfirmEmailRequest, options?: Configuration): Promise<void>;
+    userControllerDevelopersOnly(param: UsersApiUserControllerDevelopersOnlyRequest, options?: Configuration): Promise<string>;
+    userControllerRegister(param: UsersApiUserControllerRegisterRequest, options?: Configuration): Promise<User>;
+    userControllerUpdateUser(param: UsersApiUserControllerUpdateUserRequest, options?: Configuration): Promise<User>;
 }

@@ -7,7 +7,7 @@ export declare class InfoApiRequestFactory extends BaseAPIRequestFactory {
     appControllerHealth(options?: Configuration): Promise<RequestContext>;
 }
 export declare class InfoApiResponseProcessor {
-    appControllerGetInfo(response: ResponseContext): Promise<void>;
-    appControllerGetRegistration(response: ResponseContext): Promise<void>;
-    appControllerHealth(response: ResponseContext): Promise<void>;
+    appControllerGetInfo(response: ResponseContext): Promise<any>;
+    appControllerGetRegistration(response: ResponseContext): Promise<any>;
+    appControllerHealth(response: ResponseContext): Promise<string>;
 }
