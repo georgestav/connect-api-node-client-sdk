@@ -12,6 +12,9 @@
 
 import { HttpFile } from '../http/http';
 
+/**
+* Login Tokens
+*/
 export class InlineResponse200 {
     'accessToken'?: string;
     'refreshToken'?: string;

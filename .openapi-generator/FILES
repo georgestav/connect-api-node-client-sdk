@@ -1,4 +1,3 @@
-.gitignore
 README.md
 apis/AuthApi.ts
 apis/InfoApi.ts
@@ -27,7 +26,6 @@ models/RefreshTokenDto.ts
 models/UpdateUserDto.ts
 models/User.ts
 models/all.ts
-package.json
 rxjsStub.ts
 servers.ts
 tsconfig.json
